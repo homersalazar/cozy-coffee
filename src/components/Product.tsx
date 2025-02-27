@@ -1,8 +1,8 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import useCafeServices, { Cafe } from "@/api/CafeServices";
+import { useFetch } from "@/hooks/useFetch";
 
 const Product = () => {
-  const { data, loading } = useCafeServices();
+  const { data, loading } = useFetch({ url: `${import.meta.env.VITE_API_URL}` });
   const product_categories = [
     { index: 16, title: "Coffee" },
     { index: 17, title: "Bundles" },
@@ -22,9 +22,9 @@ const Product = () => {
             ) : (
               data.length > index && (
                 <img
-                  key={(data[index] as Cafe).id}
-                  src={(data[index] as Cafe).image_url}
-                  alt={(data[index] as Cafe).name}
+                  key={data[index].id}
+                  src={data[index].image_path}
+                  alt={data[index].name}
                   className="h-64 w-full object-cover rounded-md"
                 />
               )

@@ -1,10 +1,13 @@
 import { Button } from "@/components/ui/button";
-import useCafeServices, { Cafe } from "@/api/CafeServices";
+import { useFetch } from "@/hooks/useFetch";
 
 const Hero = ({ backgroundColor }: { backgroundColor: string }) => {
-  const { data = [], loading } = useCafeServices();
+  const apiUrl = import.meta.env.VITE_API_URL;
+  if (!apiUrl) {
+    console.error("API URL is not defined. Check your .env file.");
+  }
 
-  const singleCoffee: Cafe | undefined = data.length > 0 ? data[19] : undefined;
+  const { data, loading } = useFetch({ url: apiUrl });
 
   return (
     <div
@@ -14,11 +17,11 @@ const Hero = ({ backgroundColor }: { backgroundColor: string }) => {
         {loading ? (
           <p className="text-dark-blue">Loading...</p>
         ) : (
-          singleCoffee && (
+          data.length > 0  && (
             <img
-              key={(singleCoffee as Cafe).id}
-              src={(singleCoffee as Cafe).image_url}
-              alt={(singleCoffee as Cafe).name}
+              key={data[19].id}
+              src={data[19].image_path}
+              alt={data[19].name}
               className="h-84 object-cover rounded-md"
             />
           )
