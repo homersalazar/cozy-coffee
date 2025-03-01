@@ -1,40 +1,81 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { useFetch } from "@/hooks/useFetch";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper-bundle.css";
+import "swiper/swiper.css";
+import SwiperCore, { Pagination } from "swiper";
+import { useMediaQuery } from "react-responsive";
+
+// install Swiper modules
+SwiperCore.use([Pagination]);
 
 const Product = () => {
-  const { data, loading } = useFetch({ url: `${import.meta.env.VITE_API_URL}` });
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+
   const product_categories = [
-    { index: 16, title: "Coffee" },
-    { index: 17, title: "Bundles" },
-    { index: 18, title: "Subscription" },
+    {
+      id: 1,
+      title: "Coffee",
+      image_path: "https://placehold.co/400",
+    },
+    {
+      id: 2,
+      title: "Bundles",
+      image_path: "https://placehold.co/400",
+    },
+    {
+      id: 3,
+      title: "Subscription",
+      image_path: "https://placehold.co/400",
+    },
   ];
 
   return (
-    <div className="flex flex-row justify-center items-center gap-10 p-10 w-full md:h-[60vh] h-auto">
-      {product_categories.map(({ index, title }) => (
-        <Card
-          key={title}
-          className="w-full md:w-[350px] border-none shadow-none"
+    <div className="p-10 w-full md:h-[60vh] h-auto">
+      {isMobile ? (
+        <Swiper
+          spaceBetween={10}
+          slidesPerView={2}
+          pagination={{ clickable: true }}
         >
-          <CardContent className="bg-pastel-orange">
-            {loading ? (
-              <p className="text-dark-blue">Loading...</p>
-            ) : (
-              data.length > index && (
+          {product_categories.map(({ id, image_path, title }) => (
+            <SwiperSlide key={id}>
+              <Card className="w-full border-none shadow-none">
+                <CardContent className="bg-pastel-orange flex justify-center items-center">
+                  <img
+                    src={image_path}
+                    alt={title}
+                    className="h-64 w-full object-cover rounded-md"
+                  />
+                </CardContent>
+                <CardFooter className="flex justify-center mt-4 text-xl text-light-blue font-semibold">
+                  {title}
+                </CardFooter>
+              </Card>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      ) : (
+        <div className="flex flex-row justify-center items-center gap-10">
+          {product_categories.map(({ id, image_path, title }) => (
+            <Card
+              key={title}
+              className="w-full md:w-[350px] border-none shadow-none"
+            >
+              <CardContent className="bg-pastel-orange flex justify-center items-center">
                 <img
-                  key={data[index].id}
-                  src={data[index].image_path}
-                  alt={data[index].name}
+                  key={id}
+                  src={image_path}
+                  alt={title}
                   className="h-64 w-full object-cover rounded-md"
                 />
-              )
-            )}
-          </CardContent>
-          <CardFooter className="flex justify-center mt-4 text-xl text-light-blue font-semibold">
-            {title}
-          </CardFooter>
-        </Card>
-      ))}
+              </CardContent>
+              <CardFooter className="flex justify-center mt-4 text-xl text-light-blue font-semibold">
+                {title}
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

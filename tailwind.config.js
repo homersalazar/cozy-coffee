@@ -55,6 +55,7 @@ export default {
         "dark-blue": "#0e465a",
         "pastel-orange": "#f7efe3",
         "pastel-blue": "#d2edf7",
+        "pastel-coral": "#fffbf5",
       },
     },
   },
