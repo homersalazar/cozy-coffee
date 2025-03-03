@@ -12,10 +12,10 @@ function Home() {
 
   return (
     <>
-      {/* <NavBar backgroundColor={backgroundColor} /> */}
-      {/* <Hero backgroundColor={backgroundColor} /> */}
+      <NavBar backgroundColor={backgroundColor} />
+      <Hero backgroundColor={backgroundColor} />
       <Product />
-      {/* <Featured /> */}
+      <Featured />
       {/* <Subscribe coral={coral} /> */}
       {/* <BestSeller /> */}
       {/* <Footer /> */}

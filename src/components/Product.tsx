@@ -1,20 +1,30 @@
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
 import "swiper/swiper-bundle.css";
-import "swiper/swiper.css";
-import SwiperCore, { Pagination } from "swiper";
-import { useMediaQuery } from "react-responsive";
-
-// install Swiper modules
-SwiperCore.use([Pagination]);
+import "../style.css";
 
 const Product = () => {
-  const isMobile = useMediaQuery({ maxWidth: 767 });
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Set initial state based on window width
+    setIsMobile(window.innerWidth < 768);
+
+    // Update state when window is resized
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const product_categories = [
     {
       id: 1,
-      title: "Coffee",
+      title: "Tea",
       image_path: "https://placehold.co/400",
     },
     {
@@ -29,53 +39,49 @@ const Product = () => {
     },
   ];
 
+  // Desktop view - regular grid
+  if (!isMobile) {
+    return (
+      <div className="flex flex-row justify-center items-center md:gap-10 lg:gap-20 md:p-10 w-full h-[60vh] border-2 border-dark-blue">
+        {product_categories.map(({ id, image_path, title }) => (
+          <Card key={id} className="w-full md:w-80 border-none shadow-none">
+            <CardContent className="bg-stone-50 flex justify-center items-center p-0">
+              <img
+                src={image_path}
+                alt={title}
+                className="h-64 w-full object-cover rounded-md"
+              />
+            </CardContent>
+            <CardFooter className="flex justify-center mt-4 text-xl text-teal-800 font-semibold">
+              {title}
+            </CardFooter>
+          </Card>
+        ))}
+      </div>
+    );
+  }
+
+  // Mobile view - swiper
   return (
-    <div className="p-10 w-full md:h-[60vh] h-auto">
-      {isMobile ? (
-        <Swiper
-          spaceBetween={10}
-          slidesPerView={2}
-          pagination={{ clickable: true }}
-        >
-          {product_categories.map(({ id, image_path, title }) => (
-            <SwiperSlide key={id}>
-              <Card className="w-full border-none shadow-none">
-                <CardContent className="bg-pastel-orange flex justify-center items-center">
-                  <img
-                    src={image_path}
-                    alt={title}
-                    className="h-64 w-full object-cover rounded-md"
-                  />
-                </CardContent>
-                <CardFooter className="flex justify-center mt-4 text-xl text-light-blue font-semibold">
-                  {title}
-                </CardFooter>
-              </Card>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      ) : (
-        <div className="flex flex-row justify-center items-center gap-10">
-          {product_categories.map(({ id, image_path, title }) => (
-            <Card
-              key={title}
-              className="w-full md:w-[350px] border-none shadow-none"
-            >
-              <CardContent className="bg-pastel-orange flex justify-center items-center">
+    <div className="p-5 w-full h-auto border-2 border-dark-blue">
+      <Swiper navigation={true} slidesPerView={2} modules={[Navigation]}>
+        {product_categories.map(({ id, image_path, title }) => (
+          <SwiperSlide key={id}>
+            <Card className="w-full border-none shadow-none py-16">
+              <CardContent className="bg-stone-50 flex justify-center items-center p-2">
                 <img
-                  key={id}
                   src={image_path}
                   alt={title}
                   className="h-64 w-full object-cover rounded-md"
                 />
               </CardContent>
-              <CardFooter className="flex justify-center mt-4 text-xl text-light-blue font-semibold">
+              <CardFooter className="flex justify-center mt-4 text-xl text-teal-800 font-semibold">
                 {title}
               </CardFooter>
             </Card>
-          ))}
-        </div>
-      )}
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
 };

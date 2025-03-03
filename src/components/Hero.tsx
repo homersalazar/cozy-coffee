@@ -11,7 +11,7 @@ const Hero = ({ backgroundColor }: { backgroundColor: string }) => {
 
   return (
     <div
-      className={`flex flex-col md:flex-row justify-center items-center gap-5 w-full h-auto md:h-[70vh] p-10 border-b-2 border-dark-blue ${backgroundColor}`}
+      className={`flex flex-col md:flex-row justify-center items-center gap-5 w-full h-auto md:h-[70vh] p-10 border-b border-1 border-dark-blue ${backgroundColor}`}
     >
       <div className="flex flex-row justify-center w-full">
         {/* {loading ? (
