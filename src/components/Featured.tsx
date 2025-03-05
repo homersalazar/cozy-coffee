@@ -29,10 +29,10 @@ const Product = () => {
   return (
     <div className="flex flex-col justify-center items-center gap-10 py-10 h-auto p-5 lg:h-screen w-full mx-auto bg-pastel-blue">
       <div className="text-center w-full">
-        <h1 className="text-2xl md:text-4xl font-semibold text-dark-blue">
+        <h1 className="text-3xl md:text-4xl font-semibold text-dark-blue">
           Now available!
         </h1>
-        <p className="md:text-xl text-light-blue">
+        <p className="md:text-xl text-lg text-light-blue">
           Check out our newest products directly in your browser.
         </p>
       </div>

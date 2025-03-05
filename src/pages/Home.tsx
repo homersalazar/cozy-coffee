@@ -16,7 +16,7 @@ function Home() {
       <Hero backgroundColor={backgroundColor} />
       <Product />
       <Featured />
-      {/* <Subscribe coral={coral} /> */}
+      <Subscribe coral={coral} />
       {/* <BestSeller /> */}
       {/* <Footer /> */}
     </>
