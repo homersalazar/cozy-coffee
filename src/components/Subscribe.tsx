@@ -62,10 +62,10 @@ import { CoffeeIcon, Clock, X } from "lucide-react";
 const Subscribe = ({ coral }: { coral: string }) => {
   return (
     <div
-      className={`flex flex-col items-center justify-center p-5 w-full md:h-[85vh] h-auto ${coral}`}
+      className={`flex flex-col items-center justify-center p-5 w-full md:h-[95vh] h-auto ${coral}`}
     >
-      <h1 className="text-3xl md:text-4xl text-center font-semibold text-teal-800">
-        Love our tea?
+      <h1 className="text-3xl md:text-4xl text-center font-semibold text-dark-blue">
+        Love our coffee?
       </h1>
       <p className="text-base md:text-lg max-w-5xl leading-relaxed mt-4 text-center text-dark-blue">
         Join our yearly subscription and enjoy

@@ -17,7 +17,7 @@ function Home() {
       <Product />
       <Featured />
       <Subscribe coral={coral} />
-      {/* <BestSeller /> */}
+      <BestSeller />
       {/* <Footer /> */}
     </>
   );
